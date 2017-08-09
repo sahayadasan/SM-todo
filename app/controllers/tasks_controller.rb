@@ -1,11 +1,12 @@
-class ApplicationController < ActionController::Base
-  def index
-      @tasks = Task.all
+class TasksController < ApplicationController
+ def index
       @task = Task.new()
+      @tasks = Task.order(id: :desc)
+      
   end
   
   def create
-      t= Task.new(params[:task].permit(:title))
+     t= Task.new(params[:task].permit(:title, :due, :is_complete, :priority, :category))
       t.save
       redirect_to tasks_url
   end
@@ -24,5 +25,4 @@ class ApplicationController < ActionController::Base
   
   def destroy
   end
-  
-end
+ end
